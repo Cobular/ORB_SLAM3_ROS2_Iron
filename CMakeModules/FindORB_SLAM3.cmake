@@ -5,7 +5,7 @@
 #
 # To help the search ORB_SLAM3_ROOT_DIR environment variable as the path to ORB_SLAM3 root folder
 #  e.g. `set( ORB_SLAM3_ROOT_DIR=~/ORB_SLAM3) `
-set(ORB_SLAM3_ROOT_DIR "~/Install/ORB_SLAM/ORB_SLAM3")
+set(ORB_SLAM3_ROOT_DIR "/home/ava/Documents/JulieDev/IdeaHacks/ORB_SLAM3")
 
 # message(${ORB_SLAM3_ROOT_DIR})
 # message(${ORB_SLAM3_ROOT_DIR}/include)
@@ -29,7 +29,15 @@ find_library(DBoW2_LIBRARY NAMES DBoW2
 find_library(g2o_LIBRARY NAMES g2o
              PATHS ${ORB_SLAM3_ROOT_DIR}/Thirdparty/g2o/lib)
 
+include_directories(${ORB_SLAM3_ROOT_DIR}/Thirdparty/Sophus)
 
+find_package(OpenCV 4.0 QUIET)
+if(NOT OpenCV_FOUND)
+  find_package(OpenCV 3.0 QUIET)
+  if(NOT OpenCV_FOUND)
+    message(FATAL_ERROR "OpenCV > 3.0 not found.")
+  endif()
+endif()
 
 include(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set ORB_SLAM3_FOUND to TRUE
